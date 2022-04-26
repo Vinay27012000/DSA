@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct Node{
+int data;
+struct Node *next;
+}node;
+void insertatend( node **head,int item){
+   node *last;
+    node *ptr=(node *)malloc(sizeof(node));
+    ptr->data=item;
+     ptr->next=NULL;
+    if(*head==NULL)
+    {   
+     (*head)=ptr;
+    }
+    else{
+        last=(*head);
+    while(last->next!=NULL){
+        last=last->next;
+    }
+    last->next=ptr;
+ 
+    }
+}
+void traversal(node *head){
+      printf("\n list is :");
+      node *p=head;
+    while(p!=NULL){
+        printf("%d  ",p->data);
+        p=p->next;
+    }
+}
+int main()
+{int c,item;
+node *head=NULL;
+printf("\n press 1 for insert\n press  for traversal\n press any to exit\n");
+while(1){
+   printf("\n enter choice ");
+   scanf("%d",&c);
+   switch(c){
+       case 1:printf("\n enter element : ");
+       scanf("%d",&item);
+       insertatend(&head,item);break;
+       case 2:traversal(head);break;
+       default:exit(0);
+   }}
+
+    return 0;
+}
