@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct Node{
+int data;
+struct Node *next;
+}node;
+void insertatbeginning( node **head,int item){
+    node *ptr=(node *)malloc(sizeof(node));
+    ptr->data=item;
+     ptr->next=*head;
+     (*head)=ptr;
+}
+void traversal(node *head){
+      printf("\n list is :");
+      node *p=head;
+    while(p!=NULL){
+        printf("%d  ",p->data);
+        p=p->next;
+    }
+}
+int getCurrSize(node *head){
+    int size=0;
+
+    while(head!=NULL){
+        head = head->next;
+        size++;
+    }
+    return size;
+}
+
+void insertatpos(node **head,int item,int n){
+      int size = getCurrSize(*head);
+     n--;
+     node *ptr=(node *)malloc(sizeof(node));
+     node *p;
+     p=(*head);
+    ptr->data=item;
+    if(n < 0 || n > size) 
+        printf("Invalid position to insert\n"); 
+        
+    // inserting first node
+    else if(n == 0){
+        ptr->next = *head; 
+        *head = ptr;
+    }
+    
+    else 
+    { 
+    while(--n){
+         p=p->next;
+     }
+     ptr->next=p->next;
+     p->next=ptr;
+    }
+}
+int main()
+{int c,item,pos;
+node *head=NULL;
+printf("\n press 1 for insert\n press 2 for traversal\npress 3 for insert at specific position\n press any for exit\n");
+while(1){
+   printf("\n enter choice ");
+   scanf("%d",&c);
+   switch(c){
+       case 1:printf("\n enter element : ");
+       scanf("%d",&item);
+       
+       insertatbeginning(&head,item);break;
+       case 2:traversal(head);break;
+       case 3:printf("enter position :");
+       scanf("%d",&pos);
+       printf("\n enter element : ");
+       scanf("%d",&item);
+       insertatpos(&head,item,pos);break;
+       
+       default:exit(0);
+   }}
+
+    return 0;
+}
