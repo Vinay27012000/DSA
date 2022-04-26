@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct Node{
+int data;
+struct Node *next;
+}node;
+void insertatbeginning( node **head,int item){
+    node *ptr=(node *)malloc(sizeof(node));
+    ptr->data=item;
+     ptr->next=*head;
+     (*head)=ptr;
+}
+void traversal(node *head){
+      printf("\n list is :");
+      node *p=head;
+    while(p!=NULL){
+        printf("%d  ",p->data);
+        p=p->next;
+    }
+}
+
+
+void deletebeginning(node **head){
+     
+     node *ptr;
+          ptr=(*head);
+    
+    if((*head)==NULL )
+        printf("empty list\n"); 
+    else{
+         *head=ptr->next ; 
+        free(ptr);
+    }
+}
+
+    void deleteatend(node **head){
+     
+     node *ptr,*ptr1;
+          ptr=(*head);
+    
+    if((*head)==NULL )
+        printf("empty list\n"); 
+    else
+      {  
+        ptr = (*head);   
+        while(ptr->next != NULL)  
+        {  
+            ptr1 = ptr;  
+            ptr = ptr ->next;  
+        }  
+        ptr1->next = NULL;  
+        free(ptr);  
+        printf("\nDeleted Node from the last ...\n");  
+    }   
+    
+}
+int main()
+{int c,item,pos;
+node *head=NULL;
+printf("\n press 1 for insert\n press 2 for traversal\npress 3 for delete from beginning\npress 4 for delete from end \npress any for exit\n");
+while(1){
+   printf("\n enter choice ");
+   scanf("%d",&c);
+   switch(c){
+       case 1:printf("\n enter element : ");
+       scanf("%d",&item);
+       
+       insertatbeginning(&head,item);break;
+       case 2:traversal(head);break;
+       case 3:deletebeginning(&head);break;
+       case 4:deleteatend(&head);break;
+       default:exit(0);
+   }}
+
+    return 0;
+}
+
