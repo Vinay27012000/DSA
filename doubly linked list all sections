@@ -1,0 +1,148 @@
+#include <stdio.h>
+typedef struct Node{
+    int data;
+    struct Node *next;
+    struct Node *prev;
+}node;
+
+//insertion from beginning
+void insertatbeg(node **head,node **tail,int item){
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    ptr->data=item;
+    if(*head==NULL){
+        *head=ptr;
+        *tail=ptr;
+        ptr->next=NULL;
+        ptr->prev=NULL;
+    }
+    else
+    {
+        ptr->prev=NULL;
+        ptr->next=(*head);
+        (*head)->prev=ptr;
+        *head=ptr;
+    }
+}
+
+//insertion from end
+void insertatend(node **head,node **tail,int item){
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    ptr->data=item;
+    if(*tail==NULL)
+    {
+        *head=ptr;
+        *tail=ptr;
+        ptr->next=NULL;
+        ptr->prev=NULL;
+    }
+    else
+    {
+        ptr->next=NULL;
+        ptr->prev=(*tail);
+        (*tail)->next=ptr;
+        *tail=ptr;
+    }
+}
+
+//deletion from beginning
+void deletefrombeg(node **head,node **tail){
+    node *ptr;
+    if(*head==NULL)
+    printf("\n empty list");
+    else if(*head==(*tail)){
+        ptr=(*head);
+        *head=(*tail)=NULL;
+        free(ptr);
+        printf("\n first item deleted \n");
+    }
+    else{
+    ptr=(*head);
+   ((*head)->next)->prev=NULL;
+   *head=(*head)->next;
+   free(ptr);
+   printf("\n first item deleted \n");
+    }
+}
+//deletion from end
+void deletefromend(node **head,node **tail){
+    node *ptr;
+    if(*tail==NULL)
+    printf("\n empty list");
+    else if(*head==(*tail))
+    {
+        ptr=(*tail);
+        *head=(*tail)=NULL;
+        free(ptr);
+        printf("\n last item deleted \n");
+    }
+    else{
+    ptr=(*tail);
+   ((*tail)->prev)->next=NULL;
+   *tail=(*tail)->prev;
+   free(ptr);
+   printf("\n last item deleted \n");
+    }
+}
+
+
+//forward traversal
+void ftraversal(node *head){
+    node *ptr;
+    ptr=head;
+    if(ptr==NULL)
+    printf("\nempty list");
+    else{
+    printf("\n list is :");
+    while(ptr){
+        printf("%d ",ptr->data);
+        ptr=ptr->next;
+    }}
+}
+
+//backward traversal
+void btraversal(node *tail){
+    node *ptr;
+    ptr=tail;
+     if(ptr==NULL)
+    printf("\nempty list");
+    else{
+    printf("\n list is :");
+    while(ptr){
+        printf("%d ",ptr->data);
+        ptr=ptr->prev;
+    }
+}
+}
+
+//main function
+int main()
+{
+    int c,item;
+    node *head=NULL,*tail=NULL;
+    
+    printf("\npress 1 insert at beginning \npress 2 for forward traversal \npress 3 for backward traversal \npress 4 for insert from end");
+    printf("\npress 5 delete at beginning \npress 6 for delete for last \npress any for exit\n");
+
+    while(1){
+        printf("\n enter choice : ");
+        scanf("%d",&c);
+        switch(c){
+            case 1:printf("\nenter element: ");
+                   scanf("%d",&item);
+                   insertatbeg(&head,&tail,item);break;
+            case 2:ftraversal(head);break;
+            case 3:btraversal(tail);break;
+            case 4:printf("\nenter element: ");
+                    scanf("%d",&item);
+                    insertatend(&head,&tail,item);break;
+            case 5:deletefrombeg(&head,&tail);break;
+            case 6:deletefromend(&head,&tail);break;
+            default:exit(0);                                                       
+            }
+    }
+
+    return 0;
+}
+
